@@ -1,122 +1,133 @@
 // Assignment code here
 /* button info and assignment code */
 //DOM elements
-const resultEl = document.getElementById('result');
-const lengthEl = document.getElementById('length');
-const uppercaseEl = document.getElementById('uppercase');
-const lowercaseEl = document.getElementById('lowercase');
-const numbersEl = document.getElementById('numbers');
-const symbolsEl = document.getElementById('symbols');
-const generateEl = document.getElementById('generate');
+// const resultEl = document.getElementById('result');
+// const lengthEl = document.getElementById('length');
+// const uppercaseEl = document.getElementById('uppercase');
+// const lowercaseEl = document.getElementById('lowercase');
+// const numbersEl = document.getElementById('numbers');
+// const symbolsEl = document.getElementById('symbols');
+// const generateEl = document.getElementById('generate');
 
-
-// Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
-
-//Place functions into an object
-const randomFunc = {
-  lower: getRandomLower,
-  upper: getRandomUpper,
-  number: getRandomNumber,
-  symbol: getRandomSymbol
-};
-
-
-const length = +lengthEl.value;
 
 
 //Generate functions
-function getRandomLower(){
-return String.fromCharCode ((Math.floor(Math.random() * 26) + 97));
+function getRandomLower() {
+  return String.fromCharCode((Math.floor(Math.random() * 26) + 97));
 }
-function getRandomUpper(){
-  return String.fromCharCode ((Math.floor(Math.random() * 26) + 65));
-  }
+function getRandomUpper() {
+  return String.fromCharCode((Math.floor(Math.random() * 26) + 65));
+}
 
-  function getRandomNumber(){
-    return String.fromCharCode ((Math.floor(Math.random() * 10) + 48));
-  }
+function getRandomNumber() {
+  return String.fromCharCode((Math.floor(Math.random() * 10) + 48));
+}
 
-  function getRandomSymbol(){
-    const symbols ='!@#$^&*()[]=<>/,.';
-    return symbols[Math.floor(Math.random() * symbols.length)];
-  }
+function getRandomSymbol() {
+  const symbols = '!@#$^&*()[]=<>/,.';
+  return symbols[Math.floor(Math.random() * symbols.length)];
+}
 
 
 // Write password to the #password input
 
 function generatePassword() {
-  var userLength = prompt(
-    "How many characters would you like your password to be? Pick a number between 8-128."
-    
+
+  function askLength() {
+    let result = prompt(
+      "How many characters would you like your password to be? Pick a number between 8-128."
+    );
+
+    // validate the prompt
+    if (!JSON.parse(result)) {
+      askLength();
+    }
+
+    if (JSON.parse(result)) {
+      let parsedResult = JSON.parse(result);
+      if (parsedResult < 8 || parsedResult > 128) {
+        askLength();
+      }
+    }
+
+    return JSON.parse(result);
+
+  }
+
+  var userLength = askLength();
+
+  var userSymbol = confirm(
+    "Do you want to include special characters? For example:!, @, #, $, %, &,  =, ?, >, <."
   );
+
+  var userLowerCase = confirm(
+    "Do you want to include lowercase letters? "
+  );
+
+  var userUpperCase = confirm(
+    "Do you want to include uppercase letters? "
+  );
+  var userNumber = confirm(
+    "Do you want to include numbers?"
+  );
+
+  let generatedPassword = '';
+
+  let criteriaArray = [];
+  let callbackMap = {
+    'lowercase': getRandomLower,
+    'uppercase': getRandomUpper,
+    'numbers': getRandomNumber,
+    'symbols': getRandomSymbol,
+  };
+
+  if (userSymbol) {
+    criteriaArray.push('symbols');
   }
-  var userSymbol = prompt(
-    "Do you want to include special characters? For example:!, @, #, $, %, &,  =, ?, >, <. Enter Y or N:"
-    );
-    
-    var userLowerCase = prompt(
-      "Do you want to include lowercase letters? Enter Y or N:"
-      );
-
-      var userUpperCase = prompt(
-        "Do you want to include uppercase letters? Enter Y or N:"
-        ); 
-        var userNumber = prompt(
-          "Do you want to include numbers? Enter Y or N:"
-          );   
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);{
-  
-  const length = +lengthEl.value;
-  const hasSymbol = userSymbol === Y;
-  const hasLower = userLowerCase === Y;
-  const hasUpper = userUpperCase === Y;
-  const hasNumber = userNumber === Y;
- 
-
-  resultEl.innerText = generatePassword(
-    hasSymbol, 
-    hasLower, 
-    hasUpper, 
-    hasNumber, 
-    length
-    );
-        };
-
-
-//Generate password function
-function generatePassword(lower, upper, number, symbol, length) {
-
-  let generatedPassword ='';
-
-  const typesCount = lower + upper + number + symbol;
-  
-  const typesArr = [{lower}, {upper}, {number}, {symbol}].filter
-  
-  item => Object.values(item)[N]
-
-  for (let i = 0;i < length += typesCount) {
-    typesArr.forEach(type => {
-     const funcName = Object.keys(type)[0];
-     
-     generatedPassword += randomFunc [funcName]();
-    })
-
+  if (userLowerCase) {
+    criteriaArray.push('lowercase');
+  }
+  if (userUpperCase) {
+    criteriaArray.push('uppercase');
+  }
+  if (userNumber) {
+    criteriaArray.push('numbers');
   }
 
-  const finalPassword = generatedPassword.slice(0, length);
+  for (let i = 0; i < userLength; i++) {
+    let idx = Math.floor(Math.random() * criteriaArray.length); // returns idx of a value in criteria array
+    let randomCharacterKey = criteriaArray[idx]; // pulls out the value at the index
+    let randomCharacterCallback = callbackMap[randomCharacterKey]; // pulls out the callback from the map using the random key
 
-  return finalPassword;
+    generatedPassword += randomCharacterCallback();
+  }
+
+  return generatedPassword;
 }
 
 
+var generateBtn = document.querySelector("#generate");
 
-  
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
 
-  
+  passwordText.value = password;
 
-  
+}
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
+
+
+
+
+
+
+
+
+
 
 
 
