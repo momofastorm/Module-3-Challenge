@@ -57,18 +57,18 @@ function generatePassword() {
   var userLength = askLength();
 
   var userSymbol = confirm(
-    "Do you want to include special characters? For example:!, @, #, $, %, &,  =, ?, >, <."
+    "Do you want to include special characters? If yes click Ok. If no click Cancel.  For example:!, @, #, $, %, &,  =, ?, >, <."
   );
 
   var userLowerCase = confirm(
-    "Do you want to include lowercase letters? "
+    "Do you want to include lowercase letters? If yes click Ok. If no click Cancel."
   );
 
   var userUpperCase = confirm(
-    "Do you want to include uppercase letters? "
+    "Do you want to include uppercase letters? If yes click Ok. If no click Cancel."
   );
   var userNumber = confirm(
-    "Do you want to include numbers?"
+    "Do you want to include numbers?  If yes click Ok. If no click Cancel."
   );
 
   let generatedPassword = '';
