@@ -1,13 +1,6 @@
 // Assignment code here
 /* button info and assignment code */
-//DOM elements
-// const resultEl = document.getElementById('result');
-// const lengthEl = document.getElementById('length');
-// const uppercaseEl = document.getElementById('uppercase');
-// const lowercaseEl = document.getElementById('lowercase');
-// const numbersEl = document.getElementById('numbers');
-// const symbolsEl = document.getElementById('symbols');
-// const generateEl = document.getElementById('generate');
+
 
 
 
@@ -29,7 +22,7 @@ function getRandomSymbol() {
 }
 
 
-// Write password to the #password input
+// Password prompts
 
 function generatePassword() {
 
@@ -57,18 +50,18 @@ function generatePassword() {
   var userLength = askLength();
 
   var userSymbol = confirm(
-    "Do you want to include special characters? If yes click Ok. If no click Cancel.  For example:!, @, #, $, %, &,  =, ?, >, <."
+    "Do you want to include special characters? If yes click OK. If no click Cancel.  For example:!, @, #, $, %, &,  =, ?, >, <."
   );
 
   var userLowerCase = confirm(
-    "Do you want to include lowercase letters? If yes click Ok. If no click Cancel."
+    "Do you want to include lowercase letters? If yes click OK. If no click Cancel."
   );
 
   var userUpperCase = confirm(
-    "Do you want to include uppercase letters? If yes click Ok. If no click Cancel."
+    "Do you want to include uppercase letters? If yes click OK. If no click Cancel."
   );
   var userNumber = confirm(
-    "Do you want to include numbers?  If yes click Ok. If no click Cancel."
+    "Do you want to include numbers?  If yes click OK. If no click Cancel."
   );
 
   let generatedPassword = '';
